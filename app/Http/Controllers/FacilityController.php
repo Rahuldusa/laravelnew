@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Facilities;
 use Illuminate\Http\Request;
 
+
 class FacilityController extends Controller
 {
     // Show the list of facilities
@@ -25,21 +26,24 @@ class FacilityController extends Controller
     {
         $request->validate([
             'facility_name' => 'required|string|max:255',
-            'charge_per_hour' => 'required|numeric',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i',
             'charge_per_day' => 'required|numeric',
             'cancel_days' => 'required|numeric',
         ]);
-    
+
+        // Insert the data directly without modifying the time format
         Facilities::create([
             'facility_name' => $request->facility_name,
-            'charge_per_hour' => $request->charge_per_hour,
+            'start_time' => $request->start_time, 
+            'end_time' => $request->end_time, 
             'charge_per_day' => $request->charge_per_day,
             'cancel_days' => $request->cancel_days,
         ]);
-    
+
         return redirect()->route('admin.facilities.index')->with('success', 'Facility added successfully');
     }
-  
+
     // Show the facility edit form
     public function edit($id)
     {
@@ -52,19 +56,21 @@ class FacilityController extends Controller
     {
         $request->validate([
             'facility_name' => 'required|string|max:255',
-            'charge_per_hour' => 'required|numeric',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i',
             'charge_per_day' => 'required|numeric',
             'cancel_days' => 'required|numeric',
         ]);
-    
+
         $facility = Facilities::findOrFail($id);
         $facility->update([
             'facility_name' => $request->facility_name,
-            'charge_per_hour' => $request->charge_per_hour,
+            'start_time' => $request->start_time, 
+            'end_time' => $request->end_time, 
             'charge_per_day' => $request->charge_per_day,
             'cancel_days' => $request->cancel_days,
         ]);
-    
+
         return redirect()->route('admin.facilities.index')->with('success', 'Facility updated successfully');
     }
 
@@ -73,7 +79,8 @@ class FacilityController extends Controller
     {
         $facility = Facilities::findOrFail($id);
         $facility->delete();
-    
+
         return redirect()->route('admin.facilities.index')->with('success', 'Facility deleted successfully');
     }
 }
+

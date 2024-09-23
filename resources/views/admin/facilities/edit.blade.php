@@ -10,10 +10,10 @@
         </div>
         <div class="card-body">
             @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             @endif
 
             <form action="{{ route('admin.facilities.update', $facility->id) }}" method="POST">
@@ -23,10 +23,18 @@
                     <label for="facility_name">Facility Name</label>
                     <input type="text" name="facility_name" id="facility_name" class="form-control" value="{{ old('facility_name', $facility->facility_name) }}" required>
                 </div>
+              
+
                 <div class="form-group">
-                    <label for="charge_per_hour">Charge Per Hour</label>
-                    <input type="number" name="charge_per_hour" id="charge_per_hour" class="form-control" value="{{ old('charge_per_hour', $facility->charge_per_hour) }}" required>
+                    <label for="timeSlot">Start Time</label>
+                    <input type="time" class="form-control" id="startTime" name="start_time"  value="{{ old('start_time', $facility->start_time) }}" required>
                 </div>
+                <div class="form-group">
+                    <label for="timeSlot">End Time</label>
+                    <input type="time" class="form-control" id="endTime" name="end_time" value="{{ old('end_time', $facility->end_time) }}" required>
+                </div>
+
+
                 <div class="form-group">
                     <label for="charge_per_day">Charge Per Day</label>
                     <input type="number" name="charge_per_day" id="charge_per_day" class="form-control" value="{{ old('charge_per_day', $facility->charge_per_day) }}" required>

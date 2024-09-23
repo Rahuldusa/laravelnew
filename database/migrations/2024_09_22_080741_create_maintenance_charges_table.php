@@ -1,24 +1,21 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStaffTable extends Migration
+class CreateMaintenanceChargesTable extends Migration
 {
     public function up()
     {
-        Schema::create('staff', function (Blueprint $table) {
+        Schema::create('maintenance_charges', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('position');
+            $table->decimal('amount_per_sqt', 10, 2);
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('staff');
+        Schema::dropIfExists('maintenance_charges');
     }
 }
