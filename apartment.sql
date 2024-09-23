@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 19, 2024 at 09:09 AM
+-- Generation Time: Sep 23, 2024 at 11:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -131,7 +131,7 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'resident', '2024-09-17 05:05:00', '2024-09-17 05:05:00');
+(2, 'Gardener', '2024-09-19 05:46:58', '2024-09-19 05:46:58');
 
 -- --------------------------------------------------------
 
@@ -171,13 +171,6 @@ CREATE TABLE `expenses` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `expenses`
---
-
-INSERT INTO `expenses` (`id`, `category`, `description`, `amount`, `paid_date`, `month`, `file_path`, `created_at`, `updated_at`) VALUES
-(2, 'Utility charge', 'kauakkai', 2000.00, '2024-09-26', '2024-08', '1726725816_bigbye_logo.jpg', '2024-09-19 00:33:36', '2024-09-19 00:33:36');
-
 -- --------------------------------------------------------
 
 --
@@ -187,19 +180,12 @@ INSERT INTO `expenses` (`id`, `category`, `description`, `amount`, `paid_date`, 
 CREATE TABLE `facilities` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `facility_name` varchar(255) NOT NULL,
-  `charge_per_hour` decimal(8,2) NOT NULL,
+  `time_slot` time NOT NULL,
   `charge_per_day` decimal(8,2) NOT NULL,
   `cancel_days` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `facilities`
---
-
-INSERT INTO `facilities` (`id`, `facility_name`, `charge_per_hour`, `charge_per_day`, `cancel_days`, `created_at`, `updated_at`) VALUES
-(1, 'Swimming', 100.00, 500.00, 3, '2024-09-19 00:30:35', '2024-09-19 00:30:47');
 
 -- --------------------------------------------------------
 
@@ -310,7 +296,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (19, '2024_09_18_081239_create_vendors_table', 4),
 (20, '2024_09_18_110244_create_staff_table', 5),
 (21, '2024_09_18_044650_facilities', 6),
-(22, '2024_09_18_172119_create_expenses_table', 6);
+(22, '2024_09_18_172119_create_expenses_table', 6),
+(24, '2024_09_19_093524_create_expenses_table', 7),
+(25, '2024_09_20_121913_create_facilities_table', 8);
 
 -- --------------------------------------------------------
 
@@ -401,8 +389,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('FSCjC1yHFsyNpS4Zwq2lg29MgpllOCQcZ2XGOwsd', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiOUszSXNaMWowcGw3a3VxTW9kRm14eHdoTlIweEZhZFFLSE9acXpQdSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zdXBlcmFkbWluL2hvbWUiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1726726582),
-('zgL9wzm3PY7MHuTRc2ZHnP0z7Jsiwu85UTmKoiSR', 13, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiNTBHY296b1g4d0J6RThCNGVlc0dGYjlacVRaWTN1dVp5c0pSV000RiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi92aWV3LXJlc2lkZW50cyI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjEzO30=', 1726728819);
+('8xtHgOBm6fXdFB95ARcm5rDrcxKBTWVEsccJwORD', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSU9FYmN4bnN3WDk5YUx5bnpPRElseVJ4Rjl1S3haODMzNzlSNHBaYiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fX0=', 1727069779),
+('Izu3ve0JnSOMndKCi5KS4A3nUgxPW1NNXLa0JnqJ', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVE9XblIzS3JobHNJS0xmWldxSnVvMlJoMWNUZkNwNWx3MjhPNjZabiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ob21lIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1727069734),
+('q12P07T522yi0LglTn87mMwFmoVMT7TA9wtVYr8R', 13, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidUdzWkFWVW14Skk3QUhGTTBxdjlOdVhzZFl1djRQbktOY2FTczd0bCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi93YXRjaG1lbiI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjEzO30=', 1727072946);
 
 -- --------------------------------------------------------
 
@@ -467,7 +456,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `mobile`, `email_verified_at`, `pass
 (10, 'Soujanya', 'pandralasoujanya11@gmail.com', '9492003258', NULL, '$2y$12$TTxlBPkGh0.oLhGP/KdN5.tqSdlnaEmG//oRdjWjt0Fhdt5gdy0tC', NULL, '2024-09-14 05:05:32', '2024-09-14 05:06:58', 1),
 (12, 'Shubham', 'shubham@gmail.com', '95864563212', NULL, '$2y$12$YRGDKBZPgr0dX9JwiXwRJeZBK1gachaKB1GCkBi2PGB4dnfLWVJGm', NULL, '2024-09-15 09:04:12', '2024-09-15 09:04:12', 3),
 (13, 'Soujanya', 'pandralasoujanya@gmail.com', '98256686623', NULL, '$2y$12$ApSqSO8c2vueYjClBs2tTeBauy5xO9o0RCBCIztI2IE7FIWDw5CHa', NULL, '2024-09-16 01:43:51', '2024-09-16 01:47:26', 1),
-(14, 'Sai', 'pandralasaikumar@gmail.com', '8374470046', NULL, '$2y$12$WKzRzozbbAXMkcDfIMDxduPZGXhDYNzfugvl9tSGio5nvoc/nsbpW', NULL, '2024-09-17 05:06:31', '2024-09-17 05:06:31', 3);
+(14, 'Sai', 'pandralasaikumar@gmail.com', '8374470046', NULL, '$2y$12$WKzRzozbbAXMkcDfIMDxduPZGXhDYNzfugvl9tSGio5nvoc/nsbpW', NULL, '2024-09-17 05:06:31', '2024-09-17 05:06:31', 3),
+(15, 'Anand', 'anand@gmail.com', '8585626253', NULL, '$2y$12$dJthqAQ70VBU0tWSAA2CWudNZx4wAeZGZAZGGRmuEn4rSg.PftccW', NULL, '2024-09-20 04:40:09', '2024-09-20 04:40:09', 4);
 
 -- --------------------------------------------------------
 
@@ -554,6 +544,13 @@ CREATE TABLE `watchman_details` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `watchman_details`
+--
+
+INSERT INTO `watchman_details` (`id`, `user_id`, `admin_id`, `name`, `mobile`, `email`, `qualifiacation`, `experience`, `aadhar_no`, `address`, `created_at`, `updated_at`) VALUES
+(1, 15, 13, 'Anand', '8585626253', 'anand@gmail.com', 'SSC', '3', '935767756357', '8-7-270/1, Hanuman nagar, Ganesh Nagar', '2024-09-20 04:40:09', '2024-09-20 04:40:09');
 
 --
 -- Indexes for dumped tables
@@ -729,7 +726,7 @@ ALTER TABLE `admin_otps`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `entry_passes`
@@ -741,13 +738,13 @@ ALTER TABLE `entry_passes`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `facilities`
 --
 ALTER TABLE `facilities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -771,7 +768,7 @@ ALTER TABLE `manager_deatils`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `resident_accounts`
@@ -795,7 +792,7 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `vendors`
@@ -813,7 +810,7 @@ ALTER TABLE `visitors`
 -- AUTO_INCREMENT for table `watchman_details`
 --
 ALTER TABLE `watchman_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
