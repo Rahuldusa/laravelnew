@@ -3,61 +3,45 @@
 @section('title', 'Booking History')
 
 @section('content')
-    <div class="container mt-5">
-        <div class="d-flex justify-content-end">
-            <a href="{{ route('resident.facilities.index') }}" class="btn btn-primary booking-history-btn">Back to Booking</a>
-        </div>
-        <h5>Booking History</h5>
-        <table class="table table-bordered">
-            <thead class="thead-light">
-                <tr>
-                    <th>Facility</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Booked For</th>
-                    <th>Community Purpose</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Amphitheatre</td>
-                    <td>11-Sep-2024</td>
-                    <td>10:00 AM - 12:00 PM</td>
-                    <td>John Doe</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>Amphitheatre</td>
-                    <td>11-Sep-2024</td>
-                    <td>11:00 AM - 12:00 PM</td>
-                    <td>Ravi</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>Amphitheatre</td>
-                    <td>13-Sep-2024</td>
-                    <td>12:00 AM - 4:00 PM</td>
-                    <td>Mohan Leo</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>Amphitheatre</td>
-                    <td>15-Sep-2024</td>
-                    <td>11:45 AM - 07:00 PM</td>
-                    <td>Paul</td>
-                    <td>Yes</td>
-                </tr>
-                <tr>
-                    <td>Amphitheatre</td>
-                    <td>17-Sep-2024</td>
-                    <td>12:45 PM - 07:00 PM</td>
-                    <td>Paul</td>
-                    <td>Yes</td>
-                </tr>
-                <!-- Add more rows as needed -->
-            </tbody>
-        </table>
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
+        <h3 class="m-0 font-weight-bold">Booking History</h3>
+        <a href="{{ route('resident.facilities.index') }}" class="btn btn-primary booking-history-btn">Back to Booking</a>
     </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>S.No</th> <!-- Serial number column -->
+                        <th>Facility</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Booked For</th>
+                        <th>Community Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($bookings as $booking)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td> <!-- Displaying serial number -->
+                            <td>{{ $booking->facility_name }}</td>
+                            <td>{{ \Carbon\Carbon::parse($booking->date)->format('d-m-Y') }}</td>
+                            <td>{{ $booking->start_time }} - {{ $booking->end_time }}</td>
+                            <td>{{ $booking->booked_for }}</td>
+                            <td>{{ $booking->community_purpose ? 'Yes' : 'No' }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6">No bookings found</td> <!-- Update colspan to match new column count -->
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('styles')
@@ -65,13 +49,12 @@
         body {
             background-color: #ffffff; /* Set background color to white */
         }
-        .container {
-            padding: 20px;
+        .container, .card {
             border-radius: 15px; /* Rounded corners */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background-color: #ffffff; /* Ensure container background is white */
         }
-        h5 {
+        h3 {
             color: #007bff;
         }
         .table thead th {
